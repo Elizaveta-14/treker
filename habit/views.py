@@ -14,7 +14,7 @@ class HabitViewSet(ModelViewSet):
     pagination_class = HabitPagination
 
     def get_permissions(self):
-        """ CRUD только для владельцев или Администратора"""
+        """CRUD только для владельцев или Администратора"""
 
         if self.action == "create":
             self.permission_classes = (IsOwner | IsAdminUser,)
@@ -30,7 +30,7 @@ class HabitViewSet(ModelViewSet):
     #     serializer.save(owner=self.request.user)
 
     def get_queryset(self):
-        """ Переопределение вывода информации: если Админ то все, если пользователь то только с пометкой is_public """
+        """Переопределение вывода информации: если Админ то все, если пользователь то только с пометкой is_public"""
 
         if self.request.user.is_staff:
             return Habit.objects.all()

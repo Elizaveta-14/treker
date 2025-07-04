@@ -5,7 +5,6 @@ from config import settings
 from habit.apps import HabitConfig
 from habit.views import HabitViewSet
 
-
 app_name = HabitConfig.name
 
 router = DefaultRouter()

@@ -2,8 +2,8 @@ from unittest import TestCase
 
 from django.core.management import call_command
 from django.urls import reverse
-from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.test import APITestCase
 
 from users.models import User
 
@@ -11,35 +11,32 @@ from users.models import User
 class HabitTest(APITestCase):
 
     def setUp(self):
-        self.user = User.objects.create(email='TEST@mail.ru')
+        self.user = User.objects.create(email="TEST@mail.ru")
         self.client.force_authenticate(user=self.user)
 
     def test_user_update(self):
-        """ Тестирование обновление обьекта USER """
+        """Тестирование обновление обьекта USER"""
 
         url = reverse("users:user-detail", args=(self.user.pk,))
 
         data = {
-            'email': 'TestUPDATE@mail.ru',
-
+            "email": "TestUPDATE@mail.ru",
         }
         response = self.client.patch(url, data=data)
 
         # Сверяем статус код
-        self.assertEqual(
-            response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Сверяем ожидаемое количество User в БД
         self.assertEqual(User.objects.count(), 1)
 
         # Сверяем данные с ожидаемыми
-        self.assertEqual(
-            response.json()["email"], 'TestUPDATE@mail.ru')
+        self.assertEqual(response.json()["email"], "TestUPDATE@mail.ru")
 
     def test_user_list(self):
-        """ Тест списка всех USER в БД """
+        """Тест списка всех USER в БД"""
 
-        url = reverse('users:user-list')
+        url = reverse("users:user-list")
         response = self.client.get(url)
         data = response.json()
 
@@ -49,20 +46,26 @@ class HabitTest(APITestCase):
         # Сверяем данные с ожидаемыми
         self.assertEqual(
             data,
-            [{'id': self.user.id, 'email': 'TEST@mail.ru', 'first_name': None, 'last_name': None, 'phone': None,
-              'country': None, 'photo': None}]
+            [
+                {
+                    "id": self.user.id,
+                    "email": "TEST@mail.ru",
+                    "first_name": None,
+                    "last_name": None,
+                    "phone": None,
+                    "country": None,
+                    "photo": None,
+                }
+            ],
         )
 
         # Сверяем ожидаемое количество User в БД
-        self.assertEqual(
-            User.objects.count(),
-            1
-        )
+        self.assertEqual(User.objects.count(), 1)
 
     def test_user_retrieve(self):
-        """ Тест детальной информации обьекта """
+        """Тест детальной информации обьекта"""
 
-        url = reverse('users:user-detail', args=(self.user.pk,))
+        url = reverse("users:user-detail", args=(self.user.pk,))
         response = self.client.get(url)
         data = response.json()
 
@@ -72,25 +75,29 @@ class HabitTest(APITestCase):
         # Сверяем данные с ожидаемыми
         self.assertEqual(
             data,
-            {'id': self.user.id, 'email': 'TEST@mail.ru', 'first_name': None, 'last_name': None, 'phone': None,
-             'country': None, 'photo': None}
+            {
+                "id": self.user.id,
+                "email": "TEST@mail.ru",
+                "first_name": None,
+                "last_name": None,
+                "phone": None,
+                "country": None,
+                "photo": None,
+            },
         )
 
     def test_user_create(self):
-        """ Тестирование создание обьекта USER """
+        """Тестирование создание обьекта USER"""
 
         data = {
-            'email': 'TestCREATE@mail.ru',
-            'country': 'TESTcountry',
-            'time': '00:00',
-            'tg_chat_id': 331431412,
-            'phone': 'TESTphone',
-            'password': 1111
+            "email": "TestCREATE@mail.ru",
+            "country": "TESTcountry",
+            "time": "00:00",
+            "tg_chat_id": 331431412,
+            "phone": "TESTphone",
+            "password": 1111,
         }
-        response = self.client.post(
-            '/user/',
-            data=data
-        )
+        response = self.client.post("/user/", data=data)
 
         # Сверяем статус код
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -101,14 +108,19 @@ class HabitTest(APITestCase):
         # Сверяем данные с ожидаемыми
         self.assertEqual(
             response.json(),
-            {'id': 7, 'email': 'TestCREATE@mail.ru', 'first_name': None, 'last_name': None,
-             'phone': 'TESTphone',
-             'country': 'TESTcountry', 'photo': None}
-
+            {
+                "id": 7,
+                "email": "TestCREATE@mail.ru",
+                "first_name": None,
+                "last_name": None,
+                "phone": "TESTphone",
+                "country": "TESTcountry",
+                "photo": None,
+            },
         )
 
     def test_user_delete(self):
-        """ Тестирование удаление обьекта USER """
+        """Тестирование удаление обьекта USER"""
 
         url = reverse("users:user-detail", args=(self.user.pk,))
 
@@ -124,7 +136,7 @@ class HabitTest(APITestCase):
 class CreateSuperuserCommandTest(TestCase):
     def test_create_superuser(self):
         # Вызов команды
-        call_command('csu')
+        call_command("csu")
 
         # Проверка, что пользователь создан
         self.assertEqual(User.objects.count(), 1)
