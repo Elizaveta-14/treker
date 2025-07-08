@@ -7,13 +7,6 @@ from users.models import User
 class Habit(models.Model):
     """Модель Привычки"""
 
-    # METHOD_CHOICE = [
-    #
-    #     ('daily', 'Ежедневная'),
-    #     ('weekly', 'Еженедельная'),
-    #     ('monthly', 'Ежемесячная')
-    # ]
-
     title = models.CharField(max_length=100, verbose_name="Название")
     owner = models.ForeignKey(
         User, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Владелец"
