@@ -1,0 +1,53 @@
+
+services:
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - ./.env
+
+  db:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env
+
+  celery:
+    build: .
+    command: bash -c "celery -A config worker -l INFO"
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - ./.env
+
+  celery_beat:
+    build: .
+    command: celery -A config beat -l INFO
+    depends_on:
+      - redis
+      - db
+      - celery
+    env_file:
+      - ./.env
+
+  redis:
+      image: redis:7
+      ports:
+        - "6379:6379"
+      volumes:
+        - redis_data:/data env_file
+      env_file:
+        - ./.env
+
+
