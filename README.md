@@ -47,14 +47,14 @@ SECRET_KEY=
 
 DEBUG=
 
-# Данные для подключения к БД
+## Данные для подключения к БД
 NAME=
 USER=
 PASSWORD=
 HOST=
 PORT=
 
-# DOCKER
+## DOCKER
 POSTGRES_PASSWORD=PASSWORD
 POSTGRES_USER=USER
 POSTGRES_PORT=PORT
@@ -63,10 +63,10 @@ POSTGRES_HOST=HOST
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
-# Почта для отправки сообщений
+## Почта для отправки сообщений
 EMAIL_HOST_PASSWORD =
 
-# TELEGRAM
+## TELEGRAM
 API_TOKEN_TELEGRAM =
 TG_NAME_CHANEL =
 
