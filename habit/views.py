@@ -24,10 +24,6 @@ class HabitViewSet(ModelViewSet):
             self.permission_classes = (IsOwner | IsAdminUser,)
         return super().get_permissions()
 
-    # def perform_create(self, serializer):
-    #     """ Записываем авторизированного пользователя в обьект OWNER """
-    #
-    #     serializer.save(owner=self.request.user)
 
     def get_queryset(self):
         """Переопределение вывода информации: если Админ то все, если пользователь то только с пометкой is_public"""

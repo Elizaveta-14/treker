@@ -24,10 +24,39 @@ pip install redis
 
 pip install djangorestframework
 ```
+Настройте переменные окружения:
+Создайте файл `.env` в корневой директории и добавьте в него следующие переменные:
 
-Запустите проект через команду 
+SECRET_KEY=
+
+DEBUG=
+
+## Данные для подключения к БД
+NAME=
+USER=
+PASSWORD=
+HOST=
+PORT=
+
+## DOCKER
+POSTGRES_PASSWORD=PASSWORD
+POSTGRES_USER=USER
+POSTGRES_PORT=PORT
+POSTGRES_DB=NAME
+POSTGRES_HOST=HOST
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+## Почта для отправки сообщений
+EMAIL_HOST_PASSWORD =
+
+## TELEGRAM
+API_TOKEN_TELEGRAM =
+TG_NAME_CHANEL =
+
+ Запустите приложение с помощью Docker Compose
 ```
-python manage.py runserver
+docker-compose up --build
 ```
 ## Безопасность:
 
@@ -86,8 +115,21 @@ Workflow содержит шаг деплоя, который запускает
 Деплой выполняется корректно, без ошибок.
 Для быстрой загрузки проекта на сервер, используйте Git Actions -->> .yml
 Незабудьте внести ваши данные в переменное окружение, а так же запросить secrets. у владельца репозитория!
+## Структура проекта
+├── requirements.txt
+├── habits/
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── tasks.py
+│   └── test.py
+└── myproject/
+    ├── settings.py
+    ├── urls.py
+    └── ...
 
 ## Документация:
+http://127.0.0.1:8000/doc
 
 ## Команда проекта:
 Салбанова Елизавета - back-end 
