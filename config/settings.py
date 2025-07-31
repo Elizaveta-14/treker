@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -148,6 +148,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -190,22 +191,18 @@ API_TOKEN_TELEGRAM = os.getenv("API_TOKEN_TELEGRAM")
 TG_NAME_CHANEL = os.getenv("TG_NAME_CHANEL")
 
 
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CELERY_BEAT_SCHEDULE = {
-    'check_is_active': {
-        'task': 'habit.tasks.send_message_to_user',
-        'schedule': timedelta(seconds=20),
+    "check_is_active": {
+        "task": "habit.tasks.send_message_to_user",
+        "schedule": timedelta(seconds=20),
     },
 }
 
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
-CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000"
-]
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000"]
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000"
-]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000"]
