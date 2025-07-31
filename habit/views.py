@@ -24,7 +24,6 @@ class HabitViewSet(ModelViewSet):
             self.permission_classes = (IsOwner | IsAdminUser,)
         return super().get_permissions()
 
-
     def get_queryset(self):
         """Переопределение вывода информации: если Админ то все, если пользователь то только с пометкой is_public"""
 
