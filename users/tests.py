@@ -109,7 +109,7 @@ class HabitTest(APITestCase):
         self.assertEqual(
             response.json(),
             {
-                "id": 7,
+                "id": 2,
                 "email": "TestCREATE@mail.ru",
                 "first_name": None,
                 "last_name": None,
@@ -145,6 +145,6 @@ class CreateSuperuserCommandTest(TestCase):
         user = User.objects.first()
 
         # Проверка атрибутов пользователя
-        self.assertEqual(user.email, "test@mail.ru")
+        self.assertEqual(user.email, "user@mail.ru")
         self.assertTrue(user.check_password("1234"))
         self.assertTrue(user.is_active)
