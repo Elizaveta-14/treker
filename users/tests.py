@@ -109,7 +109,7 @@ class HabitTest(APITestCase):
         self.assertEqual(
             response.json(),
             {
-                "id": 2,
+                "id": 7,
                 "email": "TestCREATE@mail.ru",
                 "first_name": None,
                 "last_name": None,
